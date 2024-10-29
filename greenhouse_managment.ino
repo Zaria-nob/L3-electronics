@@ -14,24 +14,39 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
   pinMode(3, OUTPUT);
+  
+  lcd.init();                      // initialize the lcd 
+  lcd.backlight();
+  
 }
 
 void loop() {
     int temperature = 0;
     int humidity = 0;
-
+    
     // Attempt to read the temperature and humidity values from the DHT11 sensor.
     int result = dht11.readTemperatureHumidity(temperature, humidity);
-
+    int temp = temperature;
+    int H = humidity;
     // Check the results of the readings.
     // If the reading is successful, print the temperature and humidity values.
     // If there are errors, print the appropriate error messages.
     if (result == 0) {
+        delay(3000);
         Serial.print("Temperature: ");
         Serial.print(temperature);
         Serial.print(" °C\tHumidity: ");
         Serial.print(humidity);
         Serial.println(" %");
+
+        // Print a message to the LCD.
+        lcd.setCursor(0,0);
+        lcd.print("Temperature: ");
+        lcd.print(result);
+        lcd.setCursor(0,1);
+        lcd.print("Humidity: ");
+        lcd.print(result);
+        
     } else {
         // Print error message based on the error code.
         Serial.println(DHT11::getErrorString(result));
