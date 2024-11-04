@@ -1,7 +1,4 @@
 #include <DHT11.h>
-//YWROBOT
-//Compatible with the Arduino IDE 1.0
-//Library version:1.1
 #include <Wire.h> 
 #include <LiquidCrystal_I2C.h>
 
@@ -32,7 +29,7 @@ void loop() {
     // If the reading is successful, print the temperature and humidity values.
     // If there are errors, print the appropriate error messages.
     if (result == 0) {
-        delay(3000);
+        //delay(2000); //reads the temp and humidity every 2 seconds
         Serial.print("Temperature: ");
         Serial.print(temperature);
         Serial.print(" °C\tHumidity: ");
@@ -41,11 +38,14 @@ void loop() {
 
         // Print a message to the LCD.
         lcd.setCursor(0,0);
-        lcd.print("Temperature: ");
-        lcd.print(result);
+        lcd.print("Temp: ");
+        lcd.print(temperature);
+        lcd.print((char)223); //degrees symbol for lcd screen
+        lcd.print("C ");
         lcd.setCursor(0,1);
         lcd.print("Humidity: ");
-        lcd.print(result);
+        lcd.print(humidity);
+        lcd.print("% ");
         
     } else {
         // Print error message based on the error code.
